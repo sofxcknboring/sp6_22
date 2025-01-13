@@ -6,27 +6,35 @@
 
 {% block content %}
 <div class="row text-center">
-    <div class="row text-center d-flex">
     {% for product in object_list %}
-    <div class="col-3 d-flex">
-        <div class="card mb-4 box-shadow flex-fill">
+    <div class="col-3 d-flex mb-4">
+        <div class="card flex-fill h-100">
             <div class="card-header">
                 <h4 class="my-0 font-weight-normal">{{ product.name }}</h4>
             </div>
             <div class="card-body">
-                <img src="{{ product.image | media_filter }}" class="img-fluid" style="height: 200px; object-fit: cover;">
+                <img src="{{ product.image|media_filter }}" class="img-fluid" style="height: 200px; object-fit: cover;">
                 <h1 class="card-title pricing-card-title">${{ product.price }}</h1>
                 <p>{{ product.description|truncatechars:100 }}</p>
-                <ul class="list-unstyled mt-3 mb-4 text-start m-3">
+                <ul class="list-unstyled mt-3 mb-4 text-start">
                     {% for feature in product.features.all %}
                     <li>- {{ feature }}</li>
                     {% endfor %}
                 </ul>
-                <a class="btn btn-primary" href="{% url 'catalog:product_detail' product.pk %}" role="button">Посмотреть</a>
+                <div class="btn-group" style="margin: 5px;">
+                    <a class="btn btn-primary w-100" href="{% url 'catalog:product_detail' product.pk %}" role="button">Посмотреть</a>
+                </div>
+                <div class="btn-group">
+                    <a class="btn btn-warning w-100" href="{% url 'catalog:product_update' product.pk %}">Изменить</a>
+                    <a class="btn btn-danger w-100" href="{% url 'catalog:product_delete' product.pk %}">Удалить</a>
+                </div>
             </div>
         </div>
     </div>
     {% endfor %}
+    <div class="col-12 text-center mt-4">  <!-- Центрируем кнопку создания -->
+        <a class="btn btn-primary" href="{% url 'catalog:product_create' %}">Создать</a>
+    </div>
 </div>
-</div>
+
 {% endblock %}
