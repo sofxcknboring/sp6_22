@@ -34,11 +34,9 @@
         </div>
     </div>
     {% endfor %}
-    {% if user.is_authenticated %}
     <div class="col-12 text-center mt-4">  <!-- Центрируем кнопку создания -->
         <a class="btn btn-primary" href="{% url 'catalog:product_create' %}">Создать</a>
     </div>
-    {% endif %}
 </div>
 
 {% endblock %}
