@@ -2,6 +2,7 @@ from django.urls import reverse_lazy, reverse
 
 from .models import Blog
 from django.views.generic import DetailView, ListView, CreateView, DeleteView, UpdateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class BlogListView(ListView):
@@ -11,13 +12,13 @@ class BlogListView(ListView):
         return Blog.objects.filter(publication=True)
 
 
-class BlogCreateView(CreateView):
+class BlogCreateView(LoginRequiredMixin,CreateView):
     model = Blog
     fields = ("title", "content", "image", )
     success_url = reverse_lazy("blog:blog_list")
 
 
-class BlogUpdateView(UpdateView):
+class BlogUpdateView(LoginRequiredMixin, UpdateView):
     model = Blog
     fields = ("title", "content", "image")
     success_url = reverse_lazy("blog:blog_list")
@@ -36,6 +37,6 @@ class BlogDetailView(DetailView):
         return self.object
 
 
-class BlogDeleteView(DeleteView):
+class BlogDeleteView(LoginRequiredMixin, DeleteView):
     model = Blog
     success_url = reverse_lazy("blog:blog_list")
