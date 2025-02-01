@@ -66,6 +66,16 @@ class ProductForm(forms.ModelForm):
         return image
 
 
+class ProductModeratorForm(forms.ModelForm):
+    class Meta:
+        model = Product
+        fields = ["is_published"]
+
+    def __init__(self, *args, **kwargs):
+        super(ProductModeratorForm, self).__init__(*args, **kwargs)
+        self.fields["is_published"].widget.attrs.update({"class": "form-check-input"})
+
+
 class CategoryForm(forms.ModelForm):
     class Meta:
         model = Category
