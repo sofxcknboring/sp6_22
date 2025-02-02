@@ -4,14 +4,15 @@
         <a class="p-2 btn btn-outline-primary" href="/">Каталог</a>
         <a class="p-2 btn btn-outline-primary" href="/contact/">Контакты</a>
         <a class="p-2 btn btn-outline-primary" href="{% url 'blog:blog_list' %}">Блог</a>
-         {% if user.is_authenticated %}
-        <form method="post" action="{% url 'users:logout' %}" class="d-inline">
-            {% csrf_token %}
-            <button type="submit" class="p-2 btn btn-outline-primary">Выйти</button>
-        </form>
+        {% if user.is_authenticated %}
+            <form method="post" action="{% url 'users:logout' %}" class="d-inline">
+                {% csrf_token %}
+                <button type="submit" class="p-2 btn btn-outline-primary">Выйти</button>
+            </form>
+            <span class="me-3">Привет, {{ user.email }}!</span>
         {% else %}
-        <a class="p-2 btn btn-outline-primary" href="{% url 'users:login' %}">Войти</a>
-        <a class="p-2 btn btn-outline-primary" href="{% url 'users:register' %}">Регистрация</a>
+            <a class="p-2 btn btn-outline-primary" href="{% url 'users:login' %}">Войти</a>
+            <a class="p-2 btn btn-outline-primary" href="{% url 'users:register' %}">Регистрация</a>
         {% endif %}
     </nav>
 </div>
