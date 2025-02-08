@@ -13,10 +13,14 @@ from django.views.generic import (
 from catalog.forms import ProductForm, ProductModeratorForm
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
+from catalog.services import get_products_from_caches
 
 
 class ProductListView(ListView):
     model = Product
+
+    def get_queryset(self):
+        return get_products_from_caches()
 
 
 class ContactTemplateView(TemplateView):
